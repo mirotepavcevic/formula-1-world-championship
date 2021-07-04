@@ -1,0 +1,330 @@
+/* font-family: 'Audiowide', cursive; */
+/* font-family: 'Open Sans', sans-serif; */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: inherit;
+	padding: inherit;
+	font-family: "Open Sans", sans-serif;
+	min-height: 100vh;
+	
+}
+
+.main {
+	/* display: flex; */
+	/* justify-content: center; */
+	/* align-items: center; */
+	height: 100%;
+}
+
+.sidebar {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	height: 100vh;
+	background-color: #333;
+	border-right: 2px solid rgb(24, 24, 24);
+}
+
+.sidebar img {
+	width: 100%;
+	height: auto;
+}
+
+.links {
+	list-style: none;
+}
+
+.link a {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	color: #fff;
+	text-decoration: none;
+	height: 80px;
+	border-bottom: 2px solid #404040;
+	border-radius: 2px;
+	margin-top: 0;
+	padding: 0;
+}
+
+.link a:nth-child(1) {
+	border-top: none;
+}
+
+.link p {
+	font-family: "Audiowide", cursive;
+	text-decoration: none;
+	font-size: 1.3rem;
+	font-style: italic;
+}
+
+.link img {
+	display: block;
+	width: 60px;
+	color: #333;
+	filter: invert(100%);
+}
+
+.content {
+	float: right;
+	width: 85%;
+	/* height: 100vh; */
+}
+
+.welcome-content {
+	/* background-color: #a91a24; */
+	color: #fff;
+	font-family: "Audiowide", cursive;
+	/* width: 80%; */
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.5rem;
+}
+
+/* DRIVERS TABLE START */
+
+.drivers,
+.teams,
+.races,
+.driverDetailsTable {
+	background-color: #9ca0a6;
+	min-height: 100%;
+	padding-bottom: 40px;
+	color: #717171;
+	font-weight: bold;
+}
+
+.drivers h2,
+.teams h2,
+.races h2 {
+	font-family: "Audiowide", cursive;
+	font-size: 3rem;
+	color: white;
+	text-shadow: 0px 3px 5px #000;
+	font-style: italic;
+	padding-left: 2rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.drivers table,
+.teams table,
+.races table {
+	margin-left: 40px;
+	width: 95%;
+	border-radius: 5px;
+	margin-bottom: 40px;
+}
+
+.driverDetailsTable table {
+	margin-left: 40px;
+	width: 90%;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.drivers table thead,
+.teams table thead,
+.races table thead,
+.driverDetailsTable table thead {
+	background-color: #c7c6c1;
+}
+
+.drivers table thead th,
+.teams table thead th,
+.races table thead th,
+.driverDetailsTable table thead th {
+	padding-left: 50px;
+	padding-right: 50px;
+	text-align: start;
+	padding: 10px;
+	/* color: rgb(32, 32, 32); */
+	color: #717171;
+	font-size: 1.1rem;
+}
+
+.races table thead tr:nth-child(2) th,
+.driverDetailsTable table thead tr:nth-child(2) th {
+	color: #000;
+	border: none;
+	background-color: #bab9b4;
+}
+
+.racesRows {
+	background-color: #bab9b4;
+}
+
+.racesRow {
+	border: none;
+	color: #000;
+}
+
+.drivers table tbody td,
+.teams table tbody td,
+.races table tbody td,
+.driverDetailsTable td {
+	background-color: white;
+	padding: 10px;
+}
+
+.drivers table tbody td a,
+.teams table tbody td a,
+.races table tbody td a,
+.driverDetailsTable td a {
+	text-decoration: none;
+	color: #717171;
+}
+
+.drivers .driverPosition,
+.teams .position,
+.races .position,
+.races .date {
+	/* font-weight: bold; */
+	color: #000;
+}
+
+.driverDetailsTable .position,
+.driverDetailsTable .driversGrid,
+.driverDetailsTable .driversRace {
+	color: #000;
+}
+
+/*zastave*/
+
+.drivers .fullName a,
+.constructorTeams,
+.constructorRaces a,
+.winner {
+	color: inherit;
+	display: flex;
+	flex-direction: row;
+}
+
+.drivers .fullName a img,
+.constructorTeams img,
+.constructorRaces a img,
+.winner img {
+	display: flex;
+	align-self: center;
+}
+
+.drivers .fullName a p,
+.constructorTeams p,
+.constructorRaces a p,
+.winner p {
+	padding: 10px;
+}
+/*zastave*/
+
+.drivers .points,
+.teams .points {
+	/* font-weight: bold; */
+	color: #000;
+}
+.fullName {
+	display: flex;
+	align-items: center;
+}
+.fullName img {
+	margin-right: 10px;
+}
+
+.spinner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+/* DRIVERS TABLE END */
+
+/* DRIVERS DETAILS START*/
+
+.driverCard {
+	background-color: #333;
+	position: fixed;
+	height: 100vh;
+	width: 20%;
+	padding: 30px;
+}
+
+.driverHeading {
+	/* display: flex;
+	justify-content: center; */
+	margin-bottom: 30px;
+	width: auto;
+}
+
+.driverPhoto {
+	/* width: 200px; */
+	width: 200px;
+	height: 200px;
+	margin-bottom: 15px;
+}
+
+.driverCard .driverPhoto img {
+	object-fit: cover;
+	/* width: 150px;
+	height: 150px; */
+	/* width: 60%;
+	height: 60%; */
+	max-width: 100%;
+	height: auto;
+	border-radius: 15px;
+	/* margin-right: 30px; */
+}
+
+.driverNameContent {
+	display: block;
+	margin-left: 10px;
+	/* display: flex;
+    flex-direction: column;
+    padding-left: 15px; */
+}
+
+.driverName {
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.driverCardTable {
+	color: white;
+	font-weight: 700;
+	text-align: left;
+}
+
+.driverCardTable i {
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+
+.driverCardTable th,
+td {
+	padding: 5px;
+	padding-right: 15px;
+}
+
+.driverDetailsTable {
+	float: right;
+	width: 80%;
+	display: flex;
+	justify-content: center;
+}
+
+.driverDetailsTable table {
+	margin-top: 30px;
+}
+
+/* DRIVERS DETAILS END*/
+
+/*Driver details table*/
