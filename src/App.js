@@ -17,6 +17,10 @@ export default class App extends React.Component {
             <Router>
                 <div className="main">
                     <div className='sidebar'>
+                        <div className="link">
+                            <Link to="/"><img src="img/home.png" /><p>Home</p>
+                            </Link>
+                        </div>
                         <nav>
                             <img src="img/praviLogo.jpg" />
                             <ul className="links">
@@ -42,10 +46,6 @@ export default class App extends React.Component {
                                 </li>
                             </ul>
                         </nav>
-                        <div className="link">
-                            <Link to="/"><img src="img/home.png" /><p>Home</p>
-                            </Link>
-                        </div>
                     </div>
                     <div className='content'>
                         <Route path="/" exact component={Welcome} />
