@@ -19,11 +19,11 @@ export default class Races extends React.Component {
 		this.getRaces()
 	}
 
-	getRaces(){
+	getRaces() {
 		var urlRaces = $.ajax(`http://ergast.com/api/f1/2013/results/1.json`);
 		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
 
-		$.when(urlRaces, urlFlags).done(function(data1, data2) {
+		$.when(urlRaces, urlFlags).done(function (data1, data2) {
 			this.setState({
 				races: data1[0].MRData.RaceTable.Races,
 				flags: JSON.parse(data2[0]),
@@ -32,7 +32,7 @@ export default class Races extends React.Component {
 		}.bind(this))
 	}
 
-	
+
 	render() {
 		const { loading } = this.state;
 		if (this.state.isLoading) {
@@ -78,7 +78,7 @@ export default class Races extends React.Component {
 													race.Circuit.Location
 														.country === "UK" &&
 													flag.en_short_name ===
-														"United Kingdom of Great Britain and Northern Ireland"
+													"United Kingdom of Great Britain and Northern Ireland"
 												) {
 													return (
 														<Flag
@@ -91,7 +91,7 @@ export default class Races extends React.Component {
 													race.Circuit.Location
 														.country === "Korea" &&
 													flag.en_short_name ===
-														"Korea (Republic of)"
+													"Korea (Republic of)"
 												) {
 													return (
 														<Flag
@@ -103,7 +103,7 @@ export default class Races extends React.Component {
 													race.Circuit.Location
 														.country === "UAE" &&
 													flag.en_short_name ===
-														"United Arab Emirates"
+													"United Arab Emirates"
 												) {
 													return (
 														<Flag
@@ -115,7 +115,7 @@ export default class Races extends React.Component {
 													race.Circuit.Location
 														.country === "USA" &&
 													flag.en_short_name ===
-														"United States of America"
+													"United States of America"
 												) {
 													return (
 														<Flag
@@ -153,9 +153,9 @@ export default class Races extends React.Component {
 											if (
 												race.Results[0].Driver
 													.nationality ===
-													"British" &&
+												"British" &&
 												flag.nationality ===
-													"British, UK"
+												"British, UK"
 											) {
 												return (
 													<Flag
@@ -183,7 +183,9 @@ export default class Races extends React.Component {
 											}
 										})}
 										<p>
-											{race.Results[0].Driver.familyName}
+											<Link  to={`/driverDetails/${race.Results[0].Driver.driverId}`}>
+												{race.Results[0].Driver.familyName}
+											</Link>
 										</p>
 									</td>
 								</tr>
