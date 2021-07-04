@@ -20,21 +20,21 @@ export default class DriversTable extends React.Component {
 		this.getDriver()
 	}
 
-	getDriver(){
+	getDriver() {
 		var urlResponse = $.ajax(`http://ergast.com/api/f1/2013/driverStandings.json`);
 		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
 
-		$.when(urlResponse, urlFlags).done(function(data1, data2) {
+		$.when(urlResponse, urlFlags).done(function (data1, data2) {
 			this.setState({
 				drivers: data1[0].MRData.StandingsTable.StandingsLists[0]
-				.DriverStandings,
+					.DriverStandings,
 				flags: JSON.parse(data2[0]),
 				isLoading: false
 			})
 		}.bind(this))
 	}
 
-	
+
 
 	render() {
 		const { loading } = this.state;
@@ -75,9 +75,9 @@ export default class DriversTable extends React.Component {
 										{this.state.flags.map((flag, i) => {
 											if (
 												driver.Driver.nationality ===
-													"British" &&
+												"British" &&
 												flag.nationality ===
-													"British, UK"
+												"British, UK"
 											) {
 												return (
 													<Flag
@@ -87,9 +87,9 @@ export default class DriversTable extends React.Component {
 												);
 											} else if (
 												driver.Driver.nationality ===
-													"Dutch" &&
+												"Dutch" &&
 												flag.nationality ===
-													"Dutch, Netherlandic"
+												"Dutch, Netherlandic"
 											) {
 												return (
 													<Flag
@@ -124,7 +124,12 @@ export default class DriversTable extends React.Component {
 										</Link>
 									</td>
 									<td className="constructor">
-										{driver.Constructors[0].name}
+										<Link
+											to={`/teamsDetails/${driver.Constructors[0].constructorId}`}
+										>
+											{driver.Constructors[0].name}
+										</Link>
+
 									</td>
 									<td className="points">{driver.points}</td>
 								</tr>
