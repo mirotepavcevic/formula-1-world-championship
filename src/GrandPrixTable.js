@@ -186,9 +186,9 @@ export default class TeamsDetails extends React.Component {
                         })}
                     </div>
 
-                    <div className="driverDetailsTable" style={{ justifyContent: "space-evenly" }}>
+                    <div className="driverDetailsTable" style={{ justifyContent: "space-evenly", width: "78%" }}>
 
-                        <div >
+                        <div style={{ width: "inherit" }}>
                             <table>
 
                                 <thead>
@@ -280,7 +280,7 @@ export default class TeamsDetails extends React.Component {
                         </div>
 
 
-                        <div >
+                        <div style={{ width: "inherit" }}>
                             <table >
 
                                 <thead>
@@ -399,14 +399,7 @@ export default class TeamsDetails extends React.Component {
 }
 
 
-// prva tabela start
 
-// prva tabela end
-
-// druga tabela start
-{/* //race Results */ }
-
-// druga tabela end
 
 
 
