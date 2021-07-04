@@ -43,17 +43,17 @@ export default class DriverDetails extends React.Component {
 		};
 	}
 	componentDidMount() {
-		
+
 		this.getDrivers(this.props.match.params.id)
-		
+
 	}
 
-	getDrivers(id){
+	getDrivers(id) {
 		var urlDrivers = $.ajax(`http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`);
 		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
 		var urlRaces = $.ajax(`http://ergast.com/api/f1/2013/drivers/${id}/results.json`);
 
-		$.when(urlDrivers,urlFlags,urlRaces).done(function (data1,data2,data3) {
+		$.when(urlDrivers, urlFlags, urlRaces).done(function (data1, data2, data3) {
 			this.setState({
 				drivers:
 					data1[0].MRData.StandingsTable.StandingsLists[0]
@@ -66,7 +66,7 @@ export default class DriverDetails extends React.Component {
 		}.bind(this))
 	}
 
-	
+
 
 	render() {
 		const { loading } = this.state;
@@ -109,9 +109,9 @@ export default class DriverDetails extends React.Component {
 												if (
 													driver.Driver
 														.nationality ===
-														"British" &&
+													"British" &&
 													flag.nationality ===
-														"British, UK"
+													"British, UK"
 												) {
 													return (
 														<Flag
@@ -123,9 +123,9 @@ export default class DriverDetails extends React.Component {
 												} else if (
 													driver.Driver
 														.nationality ===
-														"Dutch" &&
+													"Dutch" &&
 													flag.nationality ===
-														"Dutch, Netherlandic"
+													"Dutch, Netherlandic"
 												) {
 													return (
 														<Flag
@@ -225,9 +225,9 @@ export default class DriverDetails extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"UK" &&
+															"UK" &&
 															flag.en_short_name ===
-																"United Kingdom of Great Britain and Northern Ireland"
+															"United Kingdom of Great Britain and Northern Ireland"
 														) {
 															return (
 																<Flag
@@ -240,9 +240,9 @@ export default class DriverDetails extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"Korea" &&
+															"Korea" &&
 															flag.en_short_name ===
-																"Korea (Republic of)"
+															"Korea (Republic of)"
 														) {
 															return (
 																<Flag
@@ -254,9 +254,9 @@ export default class DriverDetails extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"UAE" &&
+															"UAE" &&
 															flag.en_short_name ===
-																"United Arab Emirates"
+															"United Arab Emirates"
 														) {
 															return (
 																<Flag
@@ -268,9 +268,9 @@ export default class DriverDetails extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"USA" &&
+															"USA" &&
 															flag.en_short_name ===
-																"United States of America"
+															"United States of America"
 														) {
 															return (
 																<Flag
@@ -304,7 +304,9 @@ export default class DriverDetails extends React.Component {
 											</Link>
 										</td>
 										<td className="driversTeam">
-											{race.Results[0].Constructor.name}
+											<Link to={`/teamsDetails/${race.Results[0].Constructor.constructorId}`}>
+												{race.Results[0].Constructor.name}
+											</Link>
 										</td>
 										<td className="driversGrid">
 											{race.Results[0].grid}
@@ -315,7 +317,7 @@ export default class DriverDetails extends React.Component {
 											style={{
 												backgroundColor:
 													this.state.colors[
-														parseInt(race.Results[0].position) -1
+													parseInt(race.Results[0].position) - 1
 													],
 											}}
 										>
