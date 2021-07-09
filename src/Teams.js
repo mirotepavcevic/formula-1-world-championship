@@ -11,29 +11,41 @@ export default class Teams extends React.Component {
 		this.state = {
 			teams: [],
 			flags: [],
+			year: "",
 			isLoading: true,
 		};
 	}
 
 	componentDidMount() {
-		this.getTeams()
+		this.getResponse(this.props.location.state.year);
+		this.getFlags();
 	}
 
-	getTeams(){
-		var urlTeams = $.ajax(`http://ergast.com/api/f1/2013/constructorStandings.json`);
-		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
-
-		$.when(urlTeams, urlFlags).done(function(data1, data2) {
+	getResponse(year) {
+		var url = `http://ergast.com/api/f1/${year}/constructorStandings.json`;
+		$.get(url, (data) => {
+			console.log(data);
 			this.setState({
-				teams: data1[0].MRData.StandingsTable.StandingsLists[0]
-				.ConstructorStandings,
-				flags: JSON.parse(data2[0]),
-				isLoading: false
-			})
-		}.bind(this))
+				teams: data.MRData.StandingsTable.StandingsLists[0]
+					.ConstructorStandings,
+				isLoading: false,
+			});
+		});
 	}
 
-	
+	getFlags() {
+		var url =
+			"https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+
+		$.get(url, (data) => {
+			var flags = JSON.parse(data);
+			this.setState({
+				flags: flags,
+				// isLoading: false,
+			});
+		});
+	}
+
 	render() {
 		const { loading } = this.state;
 		if (this.state.isLoading) {
@@ -58,7 +70,7 @@ export default class Teams extends React.Component {
 					<thead>
 						<tr>
 							<th colSpan="4">
-								Constructors Championships Standings - 2013
+								Constructors Championships Standings - {this.props.location.state.year}
 							</th>
 						</tr>
 					</thead>
@@ -69,55 +81,65 @@ export default class Teams extends React.Component {
 									<td className="position">
 										{team.position}
 									</td>
-									<td className="constructorTeams">
-										{this.state.flags.map((flag, i) => {
-											if (
-												team.Constructor.nationality ===
-													"British" &&
-												flag.nationality ===
-													"British, UK"
-											) {
-												return (
-													<Flag
-														key={i}
-														country="GB"
-														size={30}
-													/>
-												);
-											} else if (
-												team.Constructor.nationality ===
-													"Dutch" &&
-												flag.nationality ===
-													"Dutch, Netherlandic"
-											) {
-												return (
-													<Flag
-														key={i}
-														country="NL"
-													/>
-												);
-											} else {
+									<td>
+										<div className="constructorTeams">
+											{this.state.flags.map((flag, i) => {
 												if (
 													team.Constructor
 														.nationality ===
-													flag.nationality
+														"British" &&
+													flag.nationality ===
+														"British, UK"
 												) {
 													return (
 														<Flag
 															key={i}
-															country={
-																flag.alpha_2_code
-															}
+															country="GB"
 															size={30}
 														/>
 													);
+												} else if (
+													team.Constructor
+														.nationality ===
+														"Dutch" &&
+													flag.nationality ===
+														"Dutch, Netherlandic"
+												) {
+													return (
+														<Flag
+															key={i}
+															country="NL"
+														/>
+													);
+												} else {
+													if (
+														team.Constructor
+															.nationality ===
+														flag.nationality
+													) {
+														return (
+															<Flag
+																key={i}
+																country={
+																	flag.alpha_2_code
+																}
+																size={30}
+															/>
+														);
+													}
 												}
-											}
-										})}
-										<p>{team.Constructor.name}</p>
+											})}
+											<p>{team.Constructor.name}</p>
+										</div>
 									</td>
 									<td>
-										<Link to={`/teamsDetails/${team.Constructor.constructorId}`}>Details   <i class="fa fa-external-link"></i></Link>
+										<Link
+											to={{pathname:`teams/${team.Constructor.constructorId}`, state:{year:this.props.location.state.year}}}
+											// to={`teams/${team.Constructor.constructorId}`}
+										>
+											Details{" "}
+											<i class="fa fa-external-link"></i>
+										</Link>
 									</td>
 									<td className="points">{team.points}</td>
 								</tr>

@@ -1,0 +1,122 @@
+.racesDetails {
+	.raceCard {
+		background-color: $color-darkgray;
+		position: fixed;
+		height: $total-height;
+		width: 20%;
+		padding: 30px;
+		display: block;
+
+		.raceCardHeading {
+			color: white;
+			font-size: 1.5rem;
+			font-weight: bold;
+			margin-bottom: 20px;
+		}
+
+		.raceCardTable {
+			color: $color-white;
+			font-weight: 700;
+			text-align: left;
+
+			i {
+				text-decoration: none;
+				color: $color-white;
+				font-size: 20px;
+			}
+
+			th,
+			td {
+				padding: 5px;
+				padding-right: 15px;
+			}
+		}
+	}
+
+	.raceDetailsTable {
+		background-color: #9ca0a6;
+		width: 80%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		float: right;
+		color: $font-color-gray;
+		font-weight: bold;
+
+		table {
+			margin: 20px;
+
+			thead {
+				@include tableThead;
+
+				tr:nth-child(2) th {
+					color: $color-black;
+					border: none;
+					background-color: #bab9b4;
+				}
+
+				th {
+					@include tableTh;
+				}
+			}
+
+			tbody {
+				tr {
+					td {
+						@include tableTd;
+
+						a {
+							@include anchor;
+						}
+					}
+
+					.blackColor {
+						color: $color-black;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1650px) {
+	.raceDetailsTable {
+		flex-direction: column;
+	}
+}
+
+@media only screen and (max-width: 1520px) {
+	.racesDetails {
+		.raceCard {
+			.raceCardHeading {
+				font-size: 1.1rem;
+			}
+			.raceCardTable {
+				font-size: 16px;
+				td {
+					padding-right: 5px;
+				}
+			}
+
+		}
+	} 	
+}
+@media only screen and (max-width: 1250px) {
+	.racesDetails {
+		.raceDetailsTable {
+			width: 76%;
+
+		}
+		.raceCard {
+			width: 24%;
+			.raceCardTable {
+				i {
+					font-size: 15px;
+				}
+				td {
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}

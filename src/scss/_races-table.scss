@@ -1,0 +1,44 @@
+.races {
+    @include tableParentDiv;
+
+    h2 {
+        @include tableParentDivHeadline;
+    }
+
+    table {
+        @include table;
+
+        thead {
+            @include tableThead;
+
+            tr:nth-child(2) th {
+                color: $color-black;
+                border: none;
+                background-color: #bab9b4;
+            }
+
+            th {
+                @include tableTh;
+            }
+        }
+
+        tbody {
+
+            tr {
+
+                td {
+                    @include tableTd;
+                }
+
+                .position {
+                    @include positionCol;
+                }
+
+                a {
+                    @include anchor;
+                }
+            }
+        }
+    }
+}
+

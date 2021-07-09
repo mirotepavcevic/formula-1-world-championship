@@ -1,0 +1,55 @@
+@mixin tableParentDiv {
+	background-color: #9ca0a6;
+	min-height: 100%;
+	padding-bottom: 40px;
+	color: $font-color-gray;
+	font-weight: bold;
+}
+
+@mixin tableParentDivHeadline {
+	font-family: $font-family-headline;
+	font-size: 3rem;
+	color: $color-white;
+	text-shadow: 0px 3px 5px $color-black;
+	font-style: italic;
+	padding-left: 2rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+@mixin table {
+	margin-left: 40px;
+	width: 95%;
+	border-radius: 5px;
+	margin-bottom: 40px;
+}
+
+@mixin tableThead {
+	background-color: #c7c6c1;
+}
+
+@mixin tableTh {
+	padding-left: 50px;
+	padding-right: 50px;
+	text-align: start;
+	padding: 10px;
+	color: $font-color-gray;
+	font-size: 1.1rem;
+	vertical-align: middle;
+}
+
+@mixin tableTd {
+	background-color: $color-white;
+	padding: 10px;
+	border: 1px solid $font-color-gray;
+	vertical-align: middle;
+}
+
+@mixin anchor {
+	text-decoration: none;
+	color: $font-color-gray;
+}
+
+@mixin positionCol {
+	color: $color-black;
+}

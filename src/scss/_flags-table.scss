@@ -1,0 +1,75 @@
+/*driver*/
+.fullName {
+    display: flex;
+    align-items: center;
+    img {
+        margin-right: 10px;
+    }
+}
+
+/*drivers details*/
+.constructorRaces a {
+    color: inherit;
+ 	display: flex;
+  	align-items: center;
+
+    img {
+        margin-right: 10px;
+    }
+}
+
+/*teams details*/
+.constructorTeams a {
+    color: inherit;
+ 	display: flex;
+  	align-items: center;
+
+    img {
+        margin-right: 10px;
+    }
+}
+
+/*teams div*/
+/*races div*/
+.constructorTeams {
+    color: inherit;
+ 	display: flex;
+  	align-items: center;
+
+      img {
+          display: flex;
+          align-self: center;
+      }
+
+      p {
+          padding: 10px;
+      }
+}
+/* Races details */
+.constructorRaces{
+    color: inherit;
+    display: flex;
+     align-items: center;
+
+     img {
+         display: flex;
+         align-self: center;
+     }
+
+     p {
+         padding: 10px;
+     }
+}
+
+/*races winner*/
+.winner {
+    color: inherit;
+    display: flex;
+    align-items: center;
+
+    p {
+        padding: 10px;
+    }
+}
+
+

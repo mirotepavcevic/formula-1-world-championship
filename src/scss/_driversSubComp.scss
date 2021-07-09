@@ -1,0 +1,142 @@
+.driverDetails {
+	.driverCard {
+		background-color: $color-darkgray;
+		position: fixed;
+		height: $total-height;
+		width: 20%;
+		padding: 30px;
+
+		div {
+			.driverHeading {
+				margin-bottom: 30px;
+				width: auto;
+
+				.driverPhoto {
+					width: 200px;
+					height: 200px;
+					margin-bottom: 15px;
+					background: url('http://localhost:8080//img/F1-Logo-history.jpg');
+					background-repeat: no-repeat;
+					background-position: center;
+
+					img {
+						object-fit: cover;
+						max-width: 100%;
+						height: auto;
+						border-radius: 15px;
+						margin-bottom: 10px;
+						
+					}
+				}
+
+				.driverNameContent {
+					display: block;
+					
+
+					.driverName {
+						color: $color-white;
+						font-size: 2rem;
+						font-weight: bold;
+					}
+				}
+			}
+
+			.driverCardTable {
+				color: $color-white;
+				font-weight: 700;
+				text-align: left;
+
+				i {
+					text-decoration: none;
+					color: $color-white;
+					font-size: 20px;
+				}
+
+				th,
+				td {
+					padding: 5px;
+					padding-right: 15px;
+				}
+			}
+		}
+	}
+
+	.driverDetailsTable {
+		@include tableParentDiv;
+		float: right;
+		width: 80%;
+		display: flex;
+		justify-content: center;
+
+		table {
+			@include table;
+			width: 90%;
+			margin-top: 20px;
+
+			thead {
+				@include tableThead;
+
+				tr:nth-child(2) th {
+					color: $color-black;
+					border: none;
+					background-color: #bab9b4;
+				}
+
+				th {
+					@include tableTh;
+				}
+			}
+
+			tbody {
+				tr {
+					td {
+						@include tableTd;
+
+						a {
+							@include anchor;
+						}
+					}
+
+					.position {
+						color: $color-black;
+					}
+
+					.driversGrid {
+						color: $color-black;
+					}
+
+					.driversRace {
+						color: $color-black;
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-width: 1350px) {
+	.driverDetails {
+		.driverCard {
+			width: 24%;
+			.driverCardTable {
+				font-size: 14px;
+			}
+		}
+		.driverDetailsTable {
+			width: 76%;
+		}
+	}
+}
+@media only screen and (max-width: 1250px) {
+	.driverDetails {
+		.driverCard {
+			width: 24%;
+			.driverCardTable {
+				font-size: 12px;
+			}
+		}
+		.driverDetailsTable {
+			width: 76%;	
+			
+		}	
+	}
+}

@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as $ from "jquery";
 import Flag from "react-flagkit";
+import Races from "./Races";
 import { FlagSpinner } from "react-spinners-kit";
-
 
 export default class DriverDetails extends React.Component {
 	constructor() {
@@ -13,6 +13,7 @@ export default class DriverDetails extends React.Component {
 			drivers: [],
 			flags: [],
 			races: [],
+			year: "",
 			colors: [
 				"yellow",
 				"gray",
@@ -39,41 +40,88 @@ export default class DriverDetails extends React.Component {
 				"darkgrey",
 				"darkgrey",
 			],
-			isLoading: true,
+			isLoading: true
 		};
 	}
 	componentDidMount() {
-
-		this.getDrivers(this.props.match.params.id)
-
+		this.getDrivers(this.props.match.params.id, this.props.location.state.year);
+		console.log('vrednost: ', this.props.location.state.year)
+		// this.getDrivers();
+		// this.getFlags();
+		// this.getRaces();
 	}
 
-	getDrivers(id) {
-		var urlDrivers = $.ajax(`http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`);
-		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
-		var urlRaces = $.ajax(`http://ergast.com/api/f1/2013/drivers/${id}/results.json`);
+	getDrivers(id, year) {
+		var urlDrivers = $.ajax(
+			`http://ergast.com/api/f1/${year}/drivers/${id}/driverStandings.json`
+		);
+		var urlFlags = $.ajax(
+			`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`
+		);
+		var urlRaces = $.ajax(
+			`http://ergast.com/api/f1/${year}/drivers/${id}/results.json`
+		);
 
-		$.when(urlDrivers, urlFlags, urlRaces).done(function (data1, data2, data3) {
-			this.setState({
-				drivers:
-					data1[0].MRData.StandingsTable.StandingsLists[0]
-						.DriverStandings,
-				flags: JSON.parse(data2[0]),
-				races: data3[0].MRData.RaceTable.Races,
-				isLoading: false
-
-			})
-		}.bind(this))
+		$.when(urlDrivers, urlFlags, urlRaces).done(
+			function (data1, data2, data3) {
+				this.setState({
+					drivers:
+						data1[0].MRData.StandingsTable.StandingsLists[0]
+							.DriverStandings,
+					flags: JSON.parse(data2[0]),
+					races: data3[0].MRData.RaceTable.Races,
+					isLoading: false
+				});
+			}.bind(this)
+		);
 	}
 
+	// getDrivers() {
+	// 	const id = this.props.match.params.id;
+	// 	console.log(id);
+	// 	var url =
+	// 		"http://ergast.com/api/f1/2013/drivers/" +
+	// 		id +
+	// 		"/driverStandings.json";
+	// 	$.get(url, (data) => {
+	// 		console.log(data);
+	// 		this.setState({
+	// 			drivers:
+	// 				data.MRData.StandingsTable.StandingsLists[0]
+	// 					.DriverStandings,
+	// 		});
+	// 	});
+	// }
+	// getFlags() {
+	// 	var url =
+	// 		"https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
 
+	// 	$.get(url, (data) => {
+	// 		var flags = JSON.parse(data);
+	// 		this.setState({
+	// 			flags: flags,
+	// 		});
+	// 	});
+	// }
+
+	// getRaces() {
+	// 	const id = this.props.match.params.id;
+	// 	var url =
+	// 		"http://ergast.com/api/f1/2013/drivers/" + id + "/results.json";
+	// 	$.get(url, (data) => {
+	// 		console.log(data);
+	// 		this.setState({
+	// 			races: data.MRData.RaceTable.Races,
+	// 		});
+	// 	});
+	// }
 
 	render() {
 		const { loading } = this.state;
 		if (this.state.isLoading) {
 			return (
-				<div className="drivers">
-					<h2>Drivers Championship</h2>
+				<div className="races">
+					<h2>Race Calendar</h2>
 					<div className="spinner">
 						<FlagSpinner
 							size={200}
@@ -85,6 +133,8 @@ export default class DriverDetails extends React.Component {
 				</div>
 			);
 		}
+		console.log(this.state.drivers);
+		console.log(this.state.races);
 		return (
 			<div className="driverDetails">
 				<div className="driverCard">
@@ -100,8 +150,10 @@ export default class DriverDetails extends React.Component {
 												"_" +
 												driver.Driver.familyName +
 												".png"
-											}
+
+											} alt=""
 										/>
+
 									</div>
 									<div className="driverNameContent">
 										<div>
@@ -163,6 +215,7 @@ export default class DriverDetails extends React.Component {
 								</div>
 
 								<table className="driverCardTable">
+									<tbody>
 									<tr>
 										<th>Country:</th>
 										<td>{driver.Driver.nationality}</td>
@@ -187,10 +240,12 @@ export default class DriverDetails extends React.Component {
 												}
 												target={"_blank"}
 											>
-												<i class="fa fa-external-link"></i>
+												<i className="fa fa-external-link"></i>
 											</Link>
 										</td>
 									</tr>
+									</tbody>
+									
 								</table>
 							</div>
 						);
@@ -200,7 +255,7 @@ export default class DriverDetails extends React.Component {
 					<table>
 						<thead>
 							<tr>
-								<th colSpan="5">Formula 1 2013 Results</th>
+								<th colSpan="5">Formula 1 {this.props.location.state.year} Results</th>
 							</tr>
 							<tr>
 								<th>Round</th>
@@ -217,96 +272,102 @@ export default class DriverDetails extends React.Component {
 										<td className="position">
 											{race.round}
 										</td>
-										<td className="constructorRaces">
-											<Link to={`/grandPrixTable/${race.round}`}>
-												{this.state.flags.map(
-													(flag, i) => {
-														if (
-															race.Circuit
-																.Location
-																.country ===
-															"UK" &&
-															flag.en_short_name ===
-															"United Kingdom of Great Britain and Northern Ireland"
-														) {
-															return (
-																<Flag
-																	key={i}
-																	country="GB"
-																	size={30}
-																/>
-															);
-														} else if (
-															race.Circuit
-																.Location
-																.country ===
-															"Korea" &&
-															flag.en_short_name ===
-															"Korea (Republic of)"
-														) {
-															return (
-																<Flag
-																	key={i}
-																	country="KR"
-																/>
-															);
-														} else if (
-															race.Circuit
-																.Location
-																.country ===
-															"UAE" &&
-															flag.en_short_name ===
-															"United Arab Emirates"
-														) {
-															return (
-																<Flag
-																	key={i}
-																	country="AE"
-																/>
-															);
-														} else if (
-															race.Circuit
-																.Location
-																.country ===
-															"USA" &&
-															flag.en_short_name ===
-															"United States of America"
-														) {
-															return (
-																<Flag
-																	key={i}
-																	country="US"
-																/>
-															);
-														} else {
+										<td>
+											<div className="constructorRaces">
+												<Link
+													to={{ pathname: `/races/${race.round}`, state: { year: this.props.location.state.year } }}>
+													{/* to={`/races/${race.round}`} */}
+													{this.state.flags.map(
+														(flag, i) => {
 															if (
 																race.Circuit
 																	.Location
 																	.country ===
-																flag.en_short_name
+																"UK" &&
+																flag.en_short_name ===
+																"United Kingdom of Great Britain and Northern Ireland"
 															) {
 																return (
 																	<Flag
 																		key={i}
-																		country={
-																			flag.alpha_2_code
-																		}
+																		country="GB"
 																		size={
 																			30
 																		}
 																	/>
 																);
+															} else if (
+																race.Circuit
+																	.Location
+																	.country ===
+																"Korea" &&
+																flag.en_short_name ===
+																"Korea (Republic of)"
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country="KR"
+																	/>
+																);
+															} else if (
+																race.Circuit
+																	.Location
+																	.country ===
+																"UAE" &&
+																flag.en_short_name ===
+																"United Arab Emirates"
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country="AE"
+																	/>
+																);
+															} else if (
+																race.Circuit
+																	.Location
+																	.country ===
+																"USA" &&
+																flag.en_short_name ===
+																"United States of America"
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country="US"
+																	/>
+																);
+															} else {
+																if (
+																	race.Circuit
+																		.Location
+																		.country ===
+																	flag.en_short_name
+																) {
+																	return (
+																		<Flag
+																			key={
+																				i
+																			}
+																			country={
+																				flag.alpha_2_code
+																			}
+																			size={
+																				30
+																			}
+																		/>
+																	);
+																}
 															}
 														}
-													}
-												)}
-												<p>{race.raceName}</p>
-											</Link>
+													)}
+													<p>{race.raceName}</p>
+												</Link>
+											</div>
 										</td>
 										<td className="driversTeam">
-											<Link to={`/teamsDetails/${race.Results[0].Constructor.constructorId}`}>
-												{race.Results[0].Constructor.name}
-											</Link>
+											{race.Results[0].Constructor.name}
 										</td>
 										<td className="driversGrid">
 											{race.Results[0].grid}
@@ -317,7 +378,10 @@ export default class DriverDetails extends React.Component {
 											style={{
 												backgroundColor:
 													this.state.colors[
-													parseInt(race.Results[0].position) - 1
+													parseInt(
+														race.Results[0]
+															.position
+													) - 1
 													],
 											}}
 										>

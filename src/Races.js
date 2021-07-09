@@ -11,27 +11,39 @@ export default class Races extends React.Component {
 		this.state = {
 			races: [],
 			flags: [],
+			year: "",
 			isLoading: true,
 		};
 	}
 
 	componentDidMount() {
-		this.getRaces()
+		this.getResponse(this.props.location.state.year);
+		this.getFlags();
 	}
 
-	getRaces() {
-		var urlRaces = $.ajax(`http://ergast.com/api/f1/2013/results/1.json`);
-		var urlFlags = $.ajax(`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`);
-
-		$.when(urlRaces, urlFlags).done(function (data1, data2) {
+	getResponse(year) {
+		var url = `http://ergast.com/api/f1/${year}/results/1.json`;
+		$.get(url, (data) => {
+			console.log(data);
 			this.setState({
-				races: data1[0].MRData.RaceTable.Races,
-				flags: JSON.parse(data2[0]),
-				isLoading: false
-			})
-		}.bind(this))
+				races: data.MRData.RaceTable.Races,
+				isLoading: false,
+			});
+		});
 	}
 
+	getFlags() {
+		var url =
+			"https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+
+		$.get(url, (data) => {
+			var flags = JSON.parse(data);
+			this.setState({
+				flags: flags,
+				// isLoading: false,
+			});
+		});
+	}
 
 	render() {
 		const { loading } = this.state;
@@ -56,7 +68,7 @@ export default class Races extends React.Component {
 				<table>
 					<thead>
 						<tr>
-							<th colSpan="5">Race Calendar - 2013</th>
+							<th colSpan="5">Race Calendar - {this.props.location.state.year}</th>
 						</tr>
 						<tr className="racesRows">
 							<th className="racesRow">Round</th>
@@ -71,14 +83,109 @@ export default class Races extends React.Component {
 							return (
 								<tr key={i}>
 									<td className="position">{race.round}</td>
-									<td className="constructorRaces">
-										<Link to={`/grandPrixTable/${race.round}`}>
+									<td>
+										<div className="constructorRaces">
+											<Link 
+											to={{pathname:`/races/${race.round}`, state:{year:this.props.location.state.year}}}>
+											{/* // to={`/races/${race.round}`} */}
+												{this.state.flags.map(
+													(flag, i) => {
+														if (
+															race.Circuit
+																.Location
+																.country ===
+																"UK" &&
+															flag.en_short_name ===
+																"United Kingdom of Great Britain and Northern Ireland"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="GB"
+																	size={30}
+																/>
+															);
+														} else if (
+															race.Circuit
+																.Location
+																.country ===
+																"Korea" &&
+															flag.en_short_name ===
+																"Korea (Republic of)"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="KR"
+																/>
+															);
+														} else if (
+															race.Circuit
+																.Location
+																.country ===
+																"UAE" &&
+															flag.en_short_name ===
+																"United Arab Emirates"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="AE"
+																/>
+															);
+														} else if (
+															race.Circuit
+																.Location
+																.country ===
+																"USA" &&
+															flag.en_short_name ===
+																"United States of America"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="US"
+																/>
+															);
+														} else {
+															if (
+																race.Circuit
+																	.Location
+																	.country ===
+																flag.en_short_name
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country={
+																			flag.alpha_2_code
+																		}
+																		size={
+																			30
+																		}
+																	/>
+																);
+															}
+														}
+													}
+												)}
+												<p>{race.raceName}</p>
+											</Link>
+										</div>
+									</td>
+									<td className="circuit">
+										{race.Circuit.circuitName}
+									</td>
+									<td className="date">{race.date}</td>
+									<td>
+										<div className="winner">
 											{this.state.flags.map((flag, i) => {
 												if (
-													race.Circuit.Location
-														.country === "UK" &&
-													flag.en_short_name ===
-													"United Kingdom of Great Britain and Northern Ireland"
+													race.Results[0].Driver
+														.nationality ===
+														"British" &&
+													flag.nationality ===
+														"British, UK"
 												) {
 													return (
 														<Flag
@@ -87,47 +194,11 @@ export default class Races extends React.Component {
 															size={30}
 														/>
 													);
-												} else if (
-													race.Circuit.Location
-														.country === "Korea" &&
-													flag.en_short_name ===
-													"Korea (Republic of)"
-												) {
-													return (
-														<Flag
-															key={i}
-															country="KR"
-														/>
-													);
-												} else if (
-													race.Circuit.Location
-														.country === "UAE" &&
-													flag.en_short_name ===
-													"United Arab Emirates"
-												) {
-													return (
-														<Flag
-															key={i}
-															country="AE"
-														/>
-													);
-												} else if (
-													race.Circuit.Location
-														.country === "USA" &&
-													flag.en_short_name ===
-													"United States of America"
-												) {
-													return (
-														<Flag
-															key={i}
-															country="US"
-														/>
-													);
 												} else {
 													if (
-														race.Circuit.Location
-															.country ===
-														flag.en_short_name
+														race.Results[0].Driver
+															.nationality ===
+														flag.nationality
 													) {
 														return (
 															<Flag
@@ -141,52 +212,13 @@ export default class Races extends React.Component {
 													}
 												}
 											})}
-											<p>{race.raceName}</p>
-										</Link>
-									</td>
-									<td className="circuit">
-										{race.Circuit.circuitName}
-									</td>
-									<td className="date">{race.date}</td>
-									<td className="winner">
-										{this.state.flags.map((flag, i) => {
-											if (
-												race.Results[0].Driver
-													.nationality ===
-												"British" &&
-												flag.nationality ===
-												"British, UK"
-											) {
-												return (
-													<Flag
-														key={i}
-														country="GB"
-														size={30}
-													/>
-												);
-											} else {
-												if (
+											<p>
+												{
 													race.Results[0].Driver
-														.nationality ===
-													flag.nationality
-												) {
-													return (
-														<Flag
-															key={i}
-															country={
-																flag.alpha_2_code
-															}
-															size={30}
-														/>
-													);
+														.familyName
 												}
-											}
-										})}
-										<p>
-											<Link  to={`/driverDetails/${race.Results[0].Driver.driverId}`}>
-												{race.Results[0].Driver.familyName}
-											</Link>
-										</p>
+											</p>
+										</div>
 									</td>
 								</tr>
 							);

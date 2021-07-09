@@ -1,0 +1,13 @@
+.welcome-content {
+    background-color: #a91a24;
+	color: $color-white;
+	font-family: $font-family-headline;
+	height: $total-height;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+    h1 {
+        font-size: 5rem;
+    }
+}
