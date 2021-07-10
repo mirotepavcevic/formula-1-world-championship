@@ -124,7 +124,7 @@ export default class TeamsDetails extends React.Component {
 															size={60}
 														/>
 													);
-												}  else if (
+												} else if (
 													team.Constructor
 														.nationality ===
 													"Dutch" &&
@@ -332,15 +332,11 @@ export default class TeamsDetails extends React.Component {
 																) {
 																	return (
 																		<Flag
-																			key={
-																				i
-																			}
+																			key={i}
 																			country={
 																				flag.alpha_2_code
 																			}
-																			size={
-																				30
-																			}
+																			size={30}
 																		/>
 																	);
 																}
