@@ -48,7 +48,7 @@ export default class TeamsDetails extends React.Component {
 		this.getTeamDetails(this.props.match.params.id, this.props.location.state.year);
 	}
 
-	getTeamDetails(id,year) {
+	getTeamDetails(id, year) {
 		var urlTeams = $.ajax(
 			`http://ergast.com/api/f1/${year}/constructors/${id}/constructorStandings.json`
 		);
@@ -90,6 +90,7 @@ export default class TeamsDetails extends React.Component {
 			);
 		}
 		console.log(this.state.teams);
+
 		return (
 			<div className="teamDetails">
 				<div className="teamCard">
@@ -112,9 +113,9 @@ export default class TeamsDetails extends React.Component {
 												if (
 													team.Constructor
 														.nationality ===
-														"British" &&
+													"British" &&
 													flag.nationality ===
-														"British, UK"
+													"British, UK"
 												) {
 													return (
 														<Flag
@@ -123,12 +124,12 @@ export default class TeamsDetails extends React.Component {
 															size={60}
 														/>
 													);
-												} else if (
+												}  else if (
 													team.Constructor
 														.nationality ===
-														"Dutch" &&
+													"Dutch" &&
 													flag.nationality ===
-														"Dutch, Netherlandic"
+													"Dutch, Netherlandic"
 												) {
 													return (
 														<Flag
@@ -163,32 +164,34 @@ export default class TeamsDetails extends React.Component {
 								</div>
 
 								<table className="teamCardTable">
-									<tr>
-										<th>Country:</th>
-										<td>{team.Constructor.nationality}</td>
-									</tr>
-									<tr>
-										<th>Position:</th>
-										<td>{team.position}</td>
-									</tr>
-									<tr>
-										<th>Points:</th>
-										<td>{team.points}</td>
-									</tr>
-									<tr>
-										<th>History:</th>
-										<td>
-											<Link
-												to={
-													"///en.wikipedia.org/wiki/" +
-													team.Constructor.name
-												}
-												target={"_blank"}
-											>
-												<i class="fa fa-external-link"></i>
-											</Link>
-										</td>
-									</tr>
+									<tbody>
+										<tr key={i}>
+											<th>Country:</th>
+											<td>{team.Constructor.nationality}</td>
+										</tr>
+										<tr>
+											<th>Position:</th>
+											<td>{team.position}</td>
+										</tr>
+										<tr>
+											<th>Points:</th>
+											<td>{team.points}</td>
+										</tr>
+										<tr>
+											<th>History:</th>
+											<td>
+												<Link
+													to={
+														"///en.wikipedia.org/wiki/" +
+														team.Constructor.name
+													}
+													target={"_blank"}
+												>
+													<i className="fa fa-external-link"></i>
+												</Link>
+											</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						);
@@ -207,16 +210,25 @@ export default class TeamsDetails extends React.Component {
 											<th>Round</th>
 											<th>Grand Prix</th>
 											<th>
-												{
-													race.Results[0].Driver
-														.familyName
-												}
+												<Link
+													to={{ pathname: `/drivers/${race.Results[0].Driver.driverId}`, state: { year: this.props.location.state.year } }}
+												>
+													{
+														race.Results[0].Driver
+															.familyName
+													}
+												</Link>
+
 											</th>
 											<th>
-												{
-													race.Results[1].Driver
-														.familyName
-												}
+												<Link
+													to={{ pathname: `/drivers/${race.Results[1].Driver.driverId}`, state: { year: this.props.location.state.year } }}
+												>
+													{
+														race.Results[1].Driver
+															.familyName
+													}
+												</Link>
 											</th>
 											<th>Points</th>
 										</tr>
@@ -234,17 +246,17 @@ export default class TeamsDetails extends React.Component {
 										<td>
 											<div className="constructorTeams">
 												<Link
-												to={{pathname:`/races/${race.round}`, state:{year:this.props.location.state.year}}}>
-												{/* to={`/races/${race.round}`}> */}
+													to={{ pathname: `/races/${race.round}`, state: { year: this.props.location.state.year } }}>
+													{/* to={`/races/${race.round}`}> */}
 													{this.state.flags.map(
 														(flag, i) => {
 															if (
 																race.Circuit
 																	.Location
 																	.country ===
-																	"UK" &&
+																"UK" &&
 																flag.en_short_name ===
-																	"United Kingdom of Great Britain and Northern Ireland"
+																"United Kingdom of Great Britain and Northern Ireland"
 															) {
 																return (
 																	<Flag
@@ -256,12 +268,26 @@ export default class TeamsDetails extends React.Component {
 																	/>
 																);
 															} else if (
+																race.Circuit.Location.country ===
+																"Russia" &&
+																flag.en_short_name ===
+																"Russian Federation"
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country="RU"
+																		size={30}
+																	/>
+																);
+
+															} else if (
 																race.Circuit
 																	.Location
 																	.country ===
-																	"Korea" &&
+																"Korea" &&
 																flag.en_short_name ===
-																	"Korea (Republic of)"
+																"Korea (Republic of)"
 															) {
 																return (
 																	<Flag
@@ -273,9 +299,9 @@ export default class TeamsDetails extends React.Component {
 																race.Circuit
 																	.Location
 																	.country ===
-																	"UAE" &&
+																"UAE" &&
 																flag.en_short_name ===
-																	"United Arab Emirates"
+																"United Arab Emirates"
 															) {
 																return (
 																	<Flag
@@ -287,9 +313,9 @@ export default class TeamsDetails extends React.Component {
 																race.Circuit
 																	.Location
 																	.country ===
-																	"USA" &&
+																"American" &&
 																flag.en_short_name ===
-																	"United States of America"
+																"United States of America"
 															) {
 																return (
 																	<Flag
@@ -330,10 +356,10 @@ export default class TeamsDetails extends React.Component {
 											style={{
 												backgroundColor:
 													this.state.colors[
-														parseInt(
-															race.Results[0]
-																.position
-														) - 1
+													parseInt(
+														race.Results[0]
+															.position
+													) - 1
 													],
 											}}
 										>
@@ -344,10 +370,10 @@ export default class TeamsDetails extends React.Component {
 											style={{
 												backgroundColor:
 													this.state.colors[
-														parseInt(
-															race.Results[1]
-																.position
-														) - 1
+													parseInt(
+														race.Results[1]
+															.position
+													) - 1
 													],
 											}}
 										>

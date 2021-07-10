@@ -85,18 +85,18 @@ export default class Races extends React.Component {
 									<td className="position">{race.round}</td>
 									<td>
 										<div className="constructorRaces">
-											<Link 
-											to={{pathname:`/races/${race.round}`, state:{year:this.props.location.state.year}}}>
-											{/* // to={`/races/${race.round}`} */}
+											<Link
+												to={{ pathname: `/races/${race.round}`, state: { year: this.props.location.state.year } }}>
+												{/* // to={`/races/${race.round}`} */}
 												{this.state.flags.map(
 													(flag, i) => {
 														if (
 															race.Circuit
 																.Location
 																.country ===
-																"UK" &&
+															"UK" &&
 															flag.en_short_name ===
-																"United Kingdom of Great Britain and Northern Ireland"
+															"United Kingdom of Great Britain and Northern Ireland"
 														) {
 															return (
 																<Flag
@@ -109,9 +109,9 @@ export default class Races extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"Korea" &&
+															"Korea" &&
 															flag.en_short_name ===
-																"Korea (Republic of)"
+															"Korea (Republic of)"
 														) {
 															return (
 																<Flag
@@ -120,12 +120,26 @@ export default class Races extends React.Component {
 																/>
 															);
 														} else if (
+															race.Circuit.Location.country ===
+															"Russia" &&
+															flag.en_short_name ===
+															"Russian Federation"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="RU"
+																	size={30}
+																/>
+															);
+
+														} else if (
 															race.Circuit
 																.Location
 																.country ===
-																"UAE" &&
+															"UAE" &&
 															flag.en_short_name ===
-																"United Arab Emirates"
+															"United Arab Emirates"
 														) {
 															return (
 																<Flag
@@ -137,9 +151,9 @@ export default class Races extends React.Component {
 															race.Circuit
 																.Location
 																.country ===
-																"USA" &&
+															"USA" &&
 															flag.en_short_name ===
-																"United States of America"
+															"United States of America"
 														) {
 															return (
 																<Flag
@@ -183,9 +197,9 @@ export default class Races extends React.Component {
 												if (
 													race.Results[0].Driver
 														.nationality ===
-														"British" &&
+													"British" &&
 													flag.nationality ===
-														"British, UK"
+													"British, UK"
 												) {
 													return (
 														<Flag
@@ -213,10 +227,13 @@ export default class Races extends React.Component {
 												}
 											})}
 											<p>
-												{
-													race.Results[0].Driver
-														.familyName
-												}
+												<Link
+													to={{ pathname: `/drivers/${race.Results[0].Driver.driverId}`, state: { year: this.props.location.state.year } }}
+												>{
+														race.Results[0].Driver
+															.familyName
+													}</Link>
+
 											</p>
 										</div>
 									</td>

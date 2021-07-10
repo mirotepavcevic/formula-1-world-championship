@@ -111,9 +111,9 @@ export default class DriversTable extends React.Component {
 												if (
 													driver.Driver
 														.nationality ===
-														"British" &&
+													"British" &&
 													flag.nationality ===
-														"British, UK"
+													"British, UK"
 												) {
 													return (
 														<Flag
@@ -124,9 +124,22 @@ export default class DriversTable extends React.Component {
 												} else if (
 													driver.Driver
 														.nationality ===
-														"Dutch" &&
+													"Monegasque" &&
 													flag.nationality ===
-														"Dutch, Netherlandic"
+													"Monégasque, Monacan"
+												) {
+													return (
+														<Flag
+															key={i}
+															country="MC"
+														/>
+													);
+												} else if (
+													driver.Driver
+														.nationality ===
+													"Dutch" &&
+													flag.nationality ===
+													"Dutch, Netherlandic"
 												) {
 													return (
 														<Flag
@@ -153,8 +166,8 @@ export default class DriversTable extends React.Component {
 											})}
 
 											<Link
-											to={{pathname:`/drivers/${driver.Driver.driverId}`, state:{year:this.props.location.state.year}}}
-												// to={`/drivers/${driver.Driver.driverId}`}
+												to={{ pathname: `/drivers/${driver.Driver.driverId}`, state: { year: this.props.location.state.year } }}
+											// to={`/drivers/${driver.Driver.driverId}`}
 											>
 												{driver.Driver.givenName +
 													" " +
@@ -163,7 +176,12 @@ export default class DriversTable extends React.Component {
 										</div>
 									</td>
 									<td className="constructor">
-										{driver.Constructors[0].name}
+										<Link
+											to={{ pathname: `teams/${driver.Constructors[0].constructorId}`, state: { year: this.props.location.state.year } }}
+										>
+											{driver.Constructors[0].name}
+										</Link>
+
 									</td>
 									<td className="points">{driver.points}</td>
 								</tr>

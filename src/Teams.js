@@ -129,7 +129,17 @@ export default class Teams extends React.Component {
 													}
 												}
 											})}
-											<p>{team.Constructor.name}</p>
+											<p>
+											<Link
+												to={
+													"///en.wikipedia.org/wiki/" +
+													team.Constructor.name
+												}
+												target={"_blank"}
+											>
+												{team.Constructor.name}
+											</Link>
+												</p>
 										</div>
 									</td>
 									<td>
@@ -138,7 +148,7 @@ export default class Teams extends React.Component {
 											// to={`teams/${team.Constructor.constructorId}`}
 										>
 											Details{" "}
-											<i class="fa fa-external-link"></i>
+											<i className="fa fa-external-link"></i>
 										</Link>
 									</td>
 									<td className="points">{team.points}</td>

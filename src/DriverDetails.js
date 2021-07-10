@@ -133,8 +133,9 @@ export default class DriverDetails extends React.Component {
 				</div>
 			);
 		}
-		console.log(this.state.drivers);
-		console.log(this.state.races);
+		// console.log(this.state.drivers);
+		// console.log(this.state.races);
+		// console.log('props', this.props)
 		return (
 			<div className="driverDetails">
 				<div className="driverCard">
@@ -216,36 +217,36 @@ export default class DriverDetails extends React.Component {
 
 								<table className="driverCardTable">
 									<tbody>
-									<tr>
-										<th>Country:</th>
-										<td>{driver.Driver.nationality}</td>
-									</tr>
-									<tr>
-										<th>Team:</th>
-										<td>{driver.Constructors[0].name}</td>
-									</tr>
-									<tr>
-										<th>Birth:</th>
-										<td>{driver.Driver.dateOfBirth}</td>
-									</tr>
-									<tr>
-										<th>Biography:</th>
-										<td>
-											<Link
-												to={
-													"///en.wikipedia.org/wiki/" +
-													driver.Driver.givenName +
-													"_" +
-													driver.Driver.familyName
-												}
-												target={"_blank"}
-											>
-												<i className="fa fa-external-link"></i>
-											</Link>
-										</td>
-									</tr>
+										<tr>
+											<th>Country:</th>
+											<td>{driver.Driver.nationality}</td>
+										</tr>
+										<tr>
+											<th>Team:</th>
+											<td>{driver.Constructors[0].name}</td>
+										</tr>
+										<tr>
+											<th>Birth:</th>
+											<td>{driver.Driver.dateOfBirth}</td>
+										</tr>
+										<tr>
+											<th>Biography:</th>
+											<td>
+												<Link
+													to={
+														"///en.wikipedia.org/wiki/" +
+														driver.Driver.givenName +
+														"_" +
+														driver.Driver.familyName
+													}
+													target={"_blank"}
+												>
+													<i className="fa fa-external-link"></i>
+												</Link>
+											</td>
+										</tr>
 									</tbody>
-									
+
 								</table>
 							</div>
 						);
@@ -296,6 +297,22 @@ export default class DriverDetails extends React.Component {
 																		}
 																	/>
 																);
+															} else if (
+																race.Circuit.Location.country ===
+																"Russia" &&
+																flag.en_short_name ===
+																"Russian Federation"
+															) {
+																return (
+																	<Flag
+																		key={i}
+																		country="RU"
+																		size={
+																			30
+																		}
+																	/>
+																);
+
 															} else if (
 																race.Circuit
 																	.Location
@@ -367,7 +384,12 @@ export default class DriverDetails extends React.Component {
 											</div>
 										</td>
 										<td className="driversTeam">
-											{race.Results[0].Constructor.name}
+											<Link
+												to={{ pathname: `/teams/${race.Results[0].Constructor.constructorId}`, state: { year: this.props.location.state.year } }}
+											>
+												{race.Results[0].Constructor.name}
+											</Link>
+
 										</td>
 										<td className="driversGrid">
 											{race.Results[0].grid}

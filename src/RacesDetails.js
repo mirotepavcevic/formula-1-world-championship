@@ -87,6 +87,7 @@ export default class RacesDetails extends React.Component {
 				</div>
 			);
 		}
+		console.log(this.state.flags)
 		return (
 			<div className="racesDetails">
 				<div className="raceCard">
@@ -97,9 +98,9 @@ export default class RacesDetails extends React.Component {
 									{this.state.flags.map((flag, i) => {
 										if (
 											card.Circuit.Location.country ===
-												"UK" &&
+											"UK" &&
 											flag.en_short_name ===
-												"United Kingdom of Great Britain and Northern Ireland"
+											"United Kingdom of Great Britain and Northern Ireland"
 										) {
 											return (
 												<Flag
@@ -110,9 +111,9 @@ export default class RacesDetails extends React.Component {
 											);
 										} else if (
 											card.Circuit.Location.country ===
-												"Korea" &&
+											"Korea" &&
 											flag.en_short_name ===
-												"Korea (Republic of)"
+											"Korea (Republic of)"
 										) {
 											return (
 												<Flag
@@ -123,9 +124,9 @@ export default class RacesDetails extends React.Component {
 											);
 										} else if (
 											card.Circuit.Location.country ===
-												"UAE" &&
+											"UAE" &&
 											flag.en_short_name ===
-												"United Arab Emirates"
+											"United Arab Emirates"
 										) {
 											return (
 												<Flag
@@ -136,9 +137,23 @@ export default class RacesDetails extends React.Component {
 											);
 										} else if (
 											card.Circuit.Location.country ===
-												"USA" &&
+											"Russia" &&
 											flag.en_short_name ===
-												"United States of America"
+											"Russian Federation"
+										) {
+											return (
+												<Flag
+													key={i}
+													country="RU"
+													size={200}
+												/>
+											);
+
+										} else if (
+											card.Circuit.Location.country ===
+											"USA" &&
+											flag.en_short_name ===
+											"United States of America"
 										) {
 											return (
 												<Flag
@@ -168,33 +183,37 @@ export default class RacesDetails extends React.Component {
 								</div>
 								<div className="raceCardHeading">
 									{card.raceName}
+									{console.log(card.Circuit.Location
+										.country)}
 								</div>
 								<table className="raceCardTable">
-									<tr>
-										<td>Country:</td>
-										<td>{card.Circuit.Location.country}</td>
-									</tr>
-									<tr>
-										<td>Location:</td>
-										<td>
-											{card.Circuit.Location.locality}
-										</td>
-									</tr>
-									<tr>
-										<td>Date:</td>
-										<td>{card.date}</td>
-									</tr>
-									<tr>
-										<td>Full report:</td>
-										<td>
-											<Link
-												to={`///en.wikipedia.org/wiki/2013${card.raceName}`}
-												target={"_blank"}
-											>
-												<i class="fa fa-external-link"></i>
-											</Link>
-										</td>
-									</tr>
+									<tbody>
+										<tr>
+											<td>Country:</td>
+											<td>{card.Circuit.Location.country}</td>
+										</tr>
+										<tr>
+											<td>Location:</td>
+											<td>
+												{card.Circuit.Location.locality}
+											</td>
+										</tr>
+										<tr>
+											<td>Date:</td>
+											<td>{card.date}</td>
+										</tr>
+										<tr>
+											<td>Full report:</td>
+											<td>
+												<Link
+													to={`///en.wikipedia.org/wiki/2013${card.raceName}`}
+													target={"_blank"}
+												>
+													<i className="fa fa-external-link"></i>
+												</Link>
+											</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						);
@@ -222,8 +241,7 @@ export default class RacesDetails extends React.Component {
 								niz.push(res.Q2);
 								niz.push(res.Q3);
 								var niz1 = niz.sort();
-								// console.log("niz1", niz1);
-								// console.log("niz", niz);
+
 								return (
 									<tr key={i}>
 										<td className="blackColor">
@@ -236,9 +254,9 @@ export default class RacesDetails extends React.Component {
 														if (
 															res.Driver
 																.nationality ===
-																"British" &&
+															"British" &&
 															flag.nationality ===
-																"British, UK"
+															"British, UK"
 														) {
 															return (
 																<Flag
@@ -249,14 +267,27 @@ export default class RacesDetails extends React.Component {
 														} else if (
 															res.Driver
 																.nationality ===
-																"Dutch" &&
+															"Dutch" &&
 															flag.nationality ===
-																"Dutch, Netherlandic"
+															"Dutch, Netherlandic"
 														) {
 															return (
 																<Flag
 																	key={i}
 																	country="NL"
+																/>
+															);
+														} else if (
+															res.Driver
+																.nationality ===
+															"Monegasque" &&
+															flag.nationality ===
+															"Monégasque, Monacan"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="MC"
 																/>
 															);
 														} else {
@@ -277,10 +308,22 @@ export default class RacesDetails extends React.Component {
 														}
 													}
 												)}
-												<p>{res.Driver.familyName}</p>
+												<p>
+													<Link
+														to={{ pathname: `/drivers/${res.Driver.driverId}`, state: { year: this.props.location.state.year } }}
+													>
+														{res.Driver.familyName}
+													</Link>
+												</p>
 											</div>
 										</td>
-										<td>{res.Constructor.name}</td>
+										<td>
+											<Link
+												to={{ pathname: `/teams/${res.Constructor.constructorId}`, state: { year: this.props.location.state.year } }}
+											>
+												{res.Constructor.name}
+											</Link>
+										</td>
 										<td className="blackColor">
 											{niz1[0]}
 										</td>
@@ -317,9 +360,9 @@ export default class RacesDetails extends React.Component {
 														if (
 															rec.Driver
 																.nationality ===
-																"British" &&
+															"British" &&
 															flag.nationality ===
-																"British, UK"
+															"British, UK"
 														) {
 															return (
 																<Flag
@@ -330,9 +373,22 @@ export default class RacesDetails extends React.Component {
 														} else if (
 															rec.Driver
 																.nationality ===
-																"Dutch" &&
+															"Monegasque" &&
 															flag.nationality ===
-																"Dutch, Netherlandic"
+															"Monégasque, Monacan"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="MC"
+																/>
+															);
+														} else if (
+															rec.Driver
+																.nationality ===
+															"Dutch" &&
+															flag.nationality ===
+															"Dutch, Netherlandic"
 														) {
 															return (
 																<Flag
@@ -358,10 +414,22 @@ export default class RacesDetails extends React.Component {
 														}
 													}
 												)}
-												<p>{rec.Driver.familyName}</p>
+												<p>
+													<Link
+														to={{ pathname: `/drivers/${rec.Driver.driverId}`, state: { year: this.props.location.state.year } }}
+													>
+														{rec.Driver.familyName}
+													</Link>
+												</p>
 											</div>
 										</td>
-										<td>{rec.Constructor.name}</td>
+										<td>
+											<Link
+												to={{ pathname: `/teams/${rec.Constructor.constructorId}`, state: { year: this.props.location.state.year } }}
+											>
+												{rec.Constructor.name}
+											</Link>
+										</td>
 										<td className="blackColor">
 											{rec.Time !== undefined
 												? rec.Time.time
@@ -372,8 +440,8 @@ export default class RacesDetails extends React.Component {
 											style={{
 												backgroundColor:
 													this.state.colors[
-														parseInt(rec.position) -
-															1
+													parseInt(rec.position) -
+													1
 													],
 											}}
 										>
