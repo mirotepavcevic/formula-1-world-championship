@@ -2,7 +2,7 @@ import React from "react";
 import * as $ from "jquery";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
-import { FlagSpinner } from "react-spinners-kit";
+import { MetroSpinner } from "react-spinners-kit";
 
 export default class Teams extends React.Component {
 	constructor() {
@@ -53,9 +53,9 @@ export default class Teams extends React.Component {
 				<div className="teams">
 					<h2>Constructor Championship</h2>
 					<div className="spinner">
-						<FlagSpinner
+						<MetroSpinner
 							size={200}
-							color="#000"
+							color="#fff"
 							loading={loading}
 						/>
 					</div>

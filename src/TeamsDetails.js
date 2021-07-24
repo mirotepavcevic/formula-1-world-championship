@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as $ from "jquery";
 import Flag from "react-flagkit";
 import Races from "./Races";
-import { FlagSpinner } from "react-spinners-kit";
+import { MetroSpinner } from "react-spinners-kit";
 
 export default class TeamsDetails extends React.Component {
 	constructor() {
@@ -79,9 +79,9 @@ export default class TeamsDetails extends React.Component {
 				<div className="races">
 					<h2>Race Calendar</h2>
 					<div className="spinner">
-						<FlagSpinner
+						<MetroSpinner
 							size={200}
-							color="#000"
+							color="#fff"
 							loading={loading}
 						/>
 					</div>

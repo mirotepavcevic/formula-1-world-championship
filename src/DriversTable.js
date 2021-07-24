@@ -2,7 +2,7 @@ import React from "react";
 import * as $ from "jquery";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
-import { FlagSpinner } from "react-spinners-kit";
+import { MetroSpinner } from "react-spinners-kit";
 import { getDerivedStateFromError } from "react-addons-css-transition-group";
 
 export default class DriversTable extends React.Component {
@@ -77,9 +77,9 @@ export default class DriversTable extends React.Component {
 				<div className="drivers">
 					<h2>Drivers Championship</h2>
 					<div className="spinner">
-						<FlagSpinner
+						<MetroSpinner
 							size={200}
-							color="#000"
+							color="#fff"
 							loading={loading}
 						/>
 					</div>
