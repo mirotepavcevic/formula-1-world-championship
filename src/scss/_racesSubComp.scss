@@ -34,7 +34,7 @@
 	}
 
 	.raceDetailsTable {
-		background-color: #9ca0a6;
+		@include tableParentDiv;
 		width: 80%;
 		display: flex;
 		justify-content: center;

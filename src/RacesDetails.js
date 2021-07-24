@@ -94,7 +94,7 @@ export default class RacesDetails extends React.Component {
 					{this.state.raceCard.map((card, i) => {
 						return (
 							<div key={i}>
-								<div>
+								<div className='raceFlag'>
 									{this.state.flags.map((flag, i) => {
 										if (
 											card.Circuit.Location.country ===

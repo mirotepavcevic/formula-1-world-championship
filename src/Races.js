@@ -119,6 +119,18 @@ export default class Races extends React.Component {
 																	country="KR"
 																/>
 															);
+														}else if (
+															race.Circuit.Location.country  ===
+																"Dutch" &&
+															flag.nationality ===
+																"Dutch, Netherlandic"
+														) {
+															return (
+																<Flag
+																	key={i}
+																	country="NL"
+																/>
+															);
 														} else if (
 															race.Circuit.Location.country ===
 															"Russia" &&
@@ -206,6 +218,19 @@ export default class Races extends React.Component {
 															key={i}
 															country="GB"
 															size={30}
+														/>
+													);
+												} else if (
+													race.Results[0].Driver
+														.nationality  ===
+														"Dutch" &&
+													flag.nationality ===
+														"Dutch, Netherlandic"
+												) {
+													return (
+														<Flag
+															key={i}
+															country="NL"
 														/>
 													);
 												} else {
