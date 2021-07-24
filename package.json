@@ -1,13 +1,10 @@
 {
   "name": "react-praksa",
-  "homepage": "https://mirotepavcevic.github.io/",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-  "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "webpack serve --open --hot --mode development",
+     "start": "webpack serve --open --hot --mode development",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,7 +17,6 @@
     "babel-loader": "^8.2.2",
     "html-loader": "^2.1.2",
     "jquery": "^3.6.0",
-	"gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-addons-css-transition-group": "^15.6.2",
