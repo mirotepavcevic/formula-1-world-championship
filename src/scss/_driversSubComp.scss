@@ -141,3 +141,41 @@
 		}	
 	}
 }
+
+@media only screen and (max-width: 720px) {
+	.driverDetails {
+		
+		.driverCard {
+			width: 50%;
+			height: auto;
+			padding: 16px;
+            border-radius: 12px;
+			background: #000000;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #555454, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to top, #555454, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			div{
+				.driverHeading{
+					display:flex;
+					.driverNameContent{
+						margin-left: 10px;
+						.driverName {
+							font-size: 24px;
+							
+						}
+					}
+				}
+				
+			}
+			
+		}
+		.driverDetailsTable {
+			width: 100%;
+			margin-top: 370px;
+			
+			
+		}	
+	}
+	
+	
+	
+}

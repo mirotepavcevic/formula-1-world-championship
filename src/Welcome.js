@@ -10,14 +10,9 @@ export default class Welcome extends React.Component {
 
     render() {
         return (
-            <div className="welcome-content" style={{
-                backgroundImage: "url(../img/f1.jpg)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center"
-            }}>
+            <div className="welcome-content" >
                 <h1>Welcome</h1>
-                
+
             </div>
         )
     }

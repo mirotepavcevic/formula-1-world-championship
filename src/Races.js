@@ -17,40 +17,37 @@ export default class Races extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getResponse(this.props.location.state.year);
-		this.getFlags();
+		this.getRaces(this.props.location.state.year);
+		
 	}
 
-	getResponse(year) {
-		var url = `http://ergast.com/api/f1/${year}/results/1.json`;
-		$.get(url, (data) => {
-			console.log(data);
-			this.setState({
-				races: data.MRData.RaceTable.Races,
-				isLoading: false,
-			});
-		});
+	getRaces(year) {
+		var urlResponse = $.ajax(
+			`http://ergast.com/api/f1/${year}/results/1.json`
+		);
+		var urlFlags = $.ajax(
+			`https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`
+		);
+
+		$.when(urlResponse, urlFlags).done(
+			function (data1, data2) {
+				this.setState({
+					races:
+						data1[0].MRData.RaceTable.Races,
+					flags: JSON.parse(data2[0]),
+					isLoading: false,
+				});
+			}.bind(this)
+		);
 	}
 
-	getFlags() {
-		var url =
-			"https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
-
-		$.get(url, (data) => {
-			var flags = JSON.parse(data);
-			this.setState({
-				flags: flags,
-				// isLoading: false,
-			});
-		});
-	}
-
+	
 	render() {
 		const { loading } = this.state;
 		if (this.state.isLoading) {
 			return (
 				<div className="races">
-					<h2>Race Calendar</h2>
+					<h2>You have to choose the year...</h2>
 					<div className="spinner">
 						<MetroSpinner
 							size={200}

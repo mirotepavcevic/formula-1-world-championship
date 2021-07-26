@@ -51,7 +51,7 @@ export default class Teams extends React.Component {
 		if (this.state.isLoading) {
 			return (
 				<div className="teams">
-					<h2>Constructor Championship</h2>
+					<h2>You have to choose the year...</h2>
 					<div className="spinner">
 						<MetroSpinner
 							size={200}

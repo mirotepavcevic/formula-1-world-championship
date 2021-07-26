@@ -22,11 +22,16 @@ export default class App extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleChange(event) { this.setState({ value: event.target.value }); }
+	handleChange(event) {
+		this.setState({ value: event.target.value });
+	}
 	handleSubmit(event) {
 		alert('Your choose is: ' + this.state.value + ' year');
-		event.preventDefault();
-
+		if(parseInt(this.state.value) > 2004){
+			event.preventDefault();
+		}
+		alert('you must select the year after 2005')
+		
 	}
 
 	render() {
@@ -37,7 +42,7 @@ export default class App extends React.Component {
 					<div className="sidebar">
 
 						<nav>
-							<div>
+							<div className='logo'>
 								<img src="img/praviLogo.jpg" />
 							</div>
 							<div>
@@ -71,15 +76,20 @@ export default class App extends React.Component {
 										</NavLink>
 									</li>
 									<li className="link">
-										<NavLink to="/"><img src="img/home.png" /><p>Home</p>
+										<NavLink
+											to={{ pathname: '/' }}
+
+										>
+											<img src="img/home.png" />
+											<p>Home</p>
 										</NavLink>
+									</li>
+									<li className="link">
+										<form className="link" onSubmit={this.handleSubmit}>
 
-										<form onSubmit={this.handleSubmit}>
-
-											<input type="text" value={this.state.value} onChange={this.handleChange} />
+											<input type="text" value={this.state.value} placeholder={'Enter year...'} onChange={this.handleChange} />
 											<input type="submit" value="Search  Year" />
 										</form>
-
 									</li>
 								</ul>
 							</div>

@@ -6,8 +6,30 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: url('http://localhost:8080//img/f1.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 
     h1 {
         font-size: 5rem;
     }
+}
+
+@media only screen and (max-width: 720px) {
+	.welcome-content {
+		font-family: $font-family-headline;
+		height: $total-height;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: url('http://localhost:8080//img/f1.jpg');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+		
+		h1 {
+			font-size: 3rem;
+		}
+	}
 }

@@ -75,7 +75,7 @@ export default class DriversTable extends React.Component {
 		if (this.state.isLoading) {
 			return (
 				<div className="drivers">
-					<h2>Drivers Championship</h2>
+					<h2>You have to choose the year...</h2>
 					<div className="spinner">
 						<MetroSpinner
 							size={200}
